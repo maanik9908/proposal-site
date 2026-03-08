@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Something For You 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+background:linear-gradient(135deg,#ffe5ec,#ffd6e7,#ffc2d1);
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Poppins',sans-serif;
+text-align:center;
+overflow:hidden;
+}
+
+/* main container */
+
+.container{
+max-width:600px;
+z-index:2;
+}
+
+/* headings */
+
+h1{
+font-family:'Pacifico',cursive;
+font-size:3rem;
+color:#ff4d88;
+margin-bottom:10px;
+}
+
+h2{
+color:#ff6fa5;
+font-weight:400;
+margin-bottom:25px;
+}
+
+/* buttons */
+
+button{
+padding:14px 28px;
+font-size:18px;
+border:none;
+border-radius:25px;
+margin:10px;
+cursor:pointer;
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+transition:.25s;
+}
+
+#yes{
+background:#ff4d88;
+color:white;
+}
+
+#yes:hover{
+transform:scale(1.08);
+}
+
+#no{
+background:white;
+color:#ff4d88;
+position:absolute;
+}
+
+/* doodles */
+
+.doodleRow{
+font-size:34px;
+opacity:.9;
+margin:15px 0;
+}
+
+/* floating hearts */
+
+.heart{
+position:absolute;
+width:16px;
+height:16px;
+background:#ff4d88;
+transform:rotate(45deg);
+animation:float 6s linear infinite;
+}
+
+.heart:before,
+.heart:after{
+content:"";
+position:absolute;
+width:16px;
+height:16px;
+background:#ff4d88;
+border-radius:50%;
+}
+
+.heart:before{
+top:-8px;
+left:0;
+}
+
+.heart:after{
+left:-8px;
+top:0;
+}
+
+@keyframes float{
+from{
+transform:translateY(100vh) rotate(45deg);
+opacity:1;
+}
+to{
+transform:translateY(-10vh) rotate(45deg);
+opacity:0;
+}
+}
+
+/* sparkles */
+
+.sparkle{
+position:absolute;
+color:white;
+font-size:12px;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0}
+50%{opacity:1}
+100%{opacity:0}
+}
+
+/* success screen */
+
+.success{
+display:none;
+}
+
+.message{
+font-size:20px;
+color:#ff4d88;
+margin-top:10px;
+line-height:1.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="main">
+
+<div class="doodleRow">
+🧸 💗 🐧 ✨ 🧸
+</div>
+
+<h1>Hey Ishi Chandra💖</h1>
+<h2>I have something important to ask you...<br>
+Will you be my Girlfriend ????</h2>
+
+<button id="yes" onclick="yesClicked()">Yes 💕</button>
+<button id="no">No 🙈</button>
+
+<div class="doodleRow">
+🐧 💗 🧸 ✨ 🐧
+</div>
+
+</div>
+
+
+<div class="container success" id="success">
+
+<div class="doodleRow">
+💗 ✨ 🧸 🐧 ✨ 💗
+</div>
+
+<h1>You said YES! 💖</h1>
+
+<p class="message">
+This is the beginning of something really special.<br>
+I promise to make you smile, laugh,<br>
+and remind you every day how amazing you are.
+</p>
+
+<div class="doodleRow">
+🧸 💗 🐧 ✨ 🧸
+</div>
+
+</div>
+
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-love-ambient-11073.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* runaway no button */
+
+let no=document.getElementById("no")
+
+function moveNo(){
+
+let x=Math.random()*(window.innerWidth-120)
+let y=Math.random()*(window.innerHeight-80)
+
+no.style.left=x+"px"
+no.style.top=y+"px"
+
+}
+
+no.addEventListener("mouseover",moveNo)
+no.addEventListener("click",moveNo)
+
+/* yes click */
+
+function yesClicked(){
+
+document.getElementById("main").style.display="none"
+document.getElementById("success").style.display="block"
+
+let music = document.getElementById("music")
+music.volume = 0.4
+music.play()
+
+for(let i=0;i<80;i++){
+createHeartExplosion()
+}
+
+}
+
+/* floating hearts */
+
+function createHeart(){
+
+let heart=document.createElement("div")
+heart.className="heart"
+
+heart.style.left=Math.random()*100+"vw"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),6000)
+
+}
+
+setInterval(createHeart,400)
+
+/* heart burst */
+
+function createHeartExplosion(){
+
+let heart=document.createElement("div")
+
+heart.innerHTML="💖"
+heart.style.position="absolute"
+heart.style.left="50%"
+heart.style.top="50%"
+heart.style.fontSize="26px"
+
+document.body.appendChild(heart)
+
+let x=(Math.random()-0.5)*600
+let y=(Math.random()-0.5)*600
+
+heart.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],{duration:1400})
+
+setTimeout(()=>heart.remove(),1400)
+
+}
+
+</script>
+
+</body>
+</html>
